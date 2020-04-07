@@ -1,6 +1,11 @@
+#ignore objects file
 *.o
 
+#ignore executable file
 TODO-List
 
+#ignore compilator trash
 *.json
 
+#ignore artifacts of make
+src/*.gch
