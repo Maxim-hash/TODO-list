@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-void form1();
+std::string form1();
 
 void form2();
 

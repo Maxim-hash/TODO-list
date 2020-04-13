@@ -6,6 +6,12 @@ void graphics()
 {
     RenderWindow window(VideoMode(1920, 1080), "TODO-List", Style::Default);
     window.clear(Color(50, 50, 50));
+    Font font ;
+    font.loadFromFile("FreeMono.ttf");
+    Text txt ;
+    txt.setPosition ( 50 , 50 ) ;
+    txt.setFont ( font ) ;
+    txt.setCharacterSize(22);
 
     Texture menuTexture1, menuTexture2, menuTexture3;
 	menuTexture1.loadFromFile("images/new_task_button.png");
@@ -33,7 +39,8 @@ void graphics()
         if (IntRect(0, 15, 150, 27).contains(Mouse::getPosition(window))) {
             menu1.setColor(Color(50, 50, 50));
             if (Mouse::isButtonPressed(Mouse::Left)) {
-                form1();
+                String s = form1();
+                txt.setString(s);
             }
         }
         if (IntRect(200, 15, 100, 27).contains(Mouse::getPosition(window))) {
@@ -44,7 +51,7 @@ void graphics()
         }
         window.draw(menu1);
         window.draw(menu2);
-
+        window.draw(txt);
         window.display();
 
     }
