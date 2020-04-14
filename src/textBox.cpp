@@ -3,6 +3,8 @@
  
 bool verify()
 {
+    int i = 0;
+    i++;
     sf::RenderWindow app(sf::VideoMode(200, 100), L"SFML window");
 
     while (app.isOpen())
