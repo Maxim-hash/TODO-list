@@ -6,7 +6,6 @@
 class TableOfTasks : public sf::Transformable
 {
     public:
-    std::vector<TableOfTasks> tasks;
     TableOfTasks() {
         
     }
@@ -35,6 +34,8 @@ private:
     bool status;
     std::string name;
     int priority;
+    sf::Texture cancel;
+
 };
 
 #endif

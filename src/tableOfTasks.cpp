@@ -1,12 +1,8 @@
-#ifndef TABLEOFTASKS_H
-#define TABLEOFTASKS_H
-
 #include <SFML/Graphics.hpp>
 
 class TableOfTasks : public sf::Transformable
 {
     public:
-    std::vector<TableOfTasks> tasks;
     TableOfTasks() {
         
     }
@@ -35,5 +31,3 @@ private:
     std::string name;
     int priority;
 };
-
-#endif
