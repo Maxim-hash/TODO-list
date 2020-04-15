@@ -1,4 +1,3 @@
-#include "createTask.h"
 #include "textBox.h"
 #include <string>
 
@@ -64,9 +63,10 @@ private:
     bool m_hasfocus;
 };
 
-std::string form1() 
+std::string form1(int& i) 
 {
     t:  
+    i = 0;
     Texture minor_priority_button, normal_priority_button, major_priority_button;
     minor_priority_button.loadFromFile("images/priority_button.png");
     normal_priority_button.loadFromFile("images/priority_button.png");
@@ -89,21 +89,24 @@ std::string form1()
 
     while (window.isOpen())
     {
-        b1.setColor(Color::White);
+        b1.setColor(Color::Green);
         b2.setColor(Color::White);
         b3.setColor(Color::White);
-
-        if(IntRect(10, 50, 50, 33).contains(Mouse::getPosition(window))) 
-            b1.setColor(Color::Green);
 
         if(IntRect(60, 50, 50, 33).contains(Mouse::getPosition(window))) {
             b1.setColor(Color::Green);
             b2.setColor(Color::Yellow);
+            if (Mouse::isButtonPressed(Mouse::Left)) {
+                i = 1;
+            }
         }
         if(IntRect(110, 50, 50, 33).contains(Mouse::getPosition(window))) {
             b1.setColor(Color::Green);
             b2.setColor(Color::Yellow);
             b3.setColor(Color::Red);
+            if (Mouse::isButtonPressed(Mouse::Left)) {
+                i = 2;
+            }
         }
         for (Event event; window.pollEvent(event);)
             if (event.type == Event::Closed)

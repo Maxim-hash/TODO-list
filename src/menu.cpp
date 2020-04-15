@@ -7,6 +7,7 @@ using namespace sf;
 void graphics()
 {
     std::vector<TableOfTasks> tasks;
+    int priority = 0;
     RenderWindow window(VideoMode(1920, 1080), "TODO-List", Style::Default);
     window.clear(Color(50, 50, 50));
     Font font ;
@@ -41,8 +42,8 @@ void graphics()
         if (IntRect(0, 15, 150, 27).contains(Mouse::getPosition(window))) {
             menu1.setColor(Color(50, 50, 50));
             if (Mouse::isButtonPressed(Mouse::Left)) {
-                String s = form1();
-                tasks.push_back(TableOfTasks(s));
+                String s = form1(priority);
+                tasks.push_back(TableOfTasks(s, priority));
                 for(unsigned int i = 0; i < tasks.size(); i++) {
                     tasks[i].setPosition(30, 30);
                 } 
@@ -61,6 +62,7 @@ void graphics()
         for(unsigned int i = 0; i < tasks.size(); i++) {
             txt.setString(tasks[i].getName());
             txt.setPosition(tasks[i].getX(), tasks[i].getY());
+            tasks[i].draw(window);
             window.draw(txt);
         }
         
