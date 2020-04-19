@@ -56,14 +56,23 @@ void graphics()
                 form2();
             }
         }
+        for(unsigned i = 0; i < tasks.size(); i++) {
+            auto pos = sf::Mouse::getPosition(window);
+            if (tasks[i].contains(sf::Vector2f(pos))){
+                if(Mouse::isButtonPressed(Mouse::Left))
+                    tasks[i].setStatus();
+            }
+        }
         window.clear(Color(50, 50, 50));
         window.draw(menu1);
         window.draw(menu2);
         for(unsigned int i = 0; i < tasks.size(); i++) {
-            txt.setString(tasks[i].getName());
-            txt.setPosition(tasks[i].getX(), tasks[i].getY());
-            tasks[i].draw(window);
-            window.draw(txt);
+            if(tasks[i].getStatus() == true){
+                txt.setString(tasks[i].getName());
+                txt.setPosition(tasks[i].getX(), tasks[i].getY());
+                tasks[i].draw(window);
+                window.draw(txt);
+            }
         }
         
         window.display();

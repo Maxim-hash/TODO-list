@@ -31,6 +31,9 @@ class TableOfTasks : public Transformable
     }
     void draw(RenderWindow& window) {
         s_priority.setSize(sf::Vector2f(22, 22));
+        del_button.setSize(sf::Vector2f(22, 22));
+        del_button.setPosition(x+(name.length()* 17), y);
+        del_button.setFillColor(Color::Red);
         s_priority.setPosition(x - 25, y);
         switch (priority)
         {
@@ -43,11 +46,25 @@ class TableOfTasks : public Transformable
         case 2:
             s_priority.setFillColor(sf::Color::Red);
         }
+        window.draw(del_button);
         window.draw(s_priority);
     }
     unsigned int getX(){ return x;}
     unsigned int getY(){ return y;}
+    bool getStatus()
+    {
+        return status;
+    }
+    void setStatus()
+    {
+        status = false;
+    }
+
+    bool contains(sf::Vector2f point) const{
+        return del_button.getGlobalBounds().contains(point);
+    }
 private:
+    sf::RectangleShape del_button;
     sf::RectangleShape s_priority;
     unsigned int x = 0 , y = 30;
     bool status;
