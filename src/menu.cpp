@@ -45,28 +45,36 @@ void graphics()
                 String s = form1(priority);
                 tasks.push_back(TableOfTasks(s, priority));
                 for(unsigned int i = 0; i < tasks.size(); i++) {
-                    tasks[i].setPosition(30, 30);
-                } 
+                    if(tasks[i].getStatus() == true) {
+                        tasks[i].setPosition(30, 30);
+                    }
+                    
+                }
+            } 
                 
-            }
         }
+        
         if (IntRect(200, 15, 100, 27).contains(Mouse::getPosition(window))) {
             menu2.setColor(Color(50, 50, 50)); 
             if (Mouse::isButtonPressed(Mouse::Left)) {
                 form2();
             }
         }
-        for(unsigned i = 0; i < tasks.size(); i++) {
-            auto pos = sf::Mouse::getPosition(window);
-            if (tasks[i].contains(sf::Vector2f(pos))){
-                if(Mouse::isButtonPressed(Mouse::Left))
-                    tasks[i].setStatus();
-            }
-        }
+
         window.clear(Color(50, 50, 50));
         window.draw(menu1);
         window.draw(menu2);
         for(unsigned int i = 0; i < tasks.size(); i++) {
+            auto pos = sf::Mouse::getPosition(window);
+            if (tasks[i].contains(sf::Vector2f(pos))){
+                if(Mouse::isButtonPressed(Mouse::Left)) {
+                    if(tasks[i].getStatus() != false) {
+                        tasks[i].setStatus(false);
+                        for(unsigned int j = 0; j < i; j++)
+                        tasks[j].setPosition(30 ,-30);
+                    }
+                }
+            }
             if(tasks[i].getStatus() == true){
                 txt.setString(tasks[i].getName());
                 txt.setPosition(tasks[i].getX(), tasks[i].getY());
@@ -74,7 +82,6 @@ void graphics()
                 window.draw(txt);
             }
         }
-        
         window.display();
 
     }

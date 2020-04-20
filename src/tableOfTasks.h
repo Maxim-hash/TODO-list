@@ -11,6 +11,7 @@ class TableOfTasks : public Transformable
     TableOfTasks() {
         
     }
+
     std::string getName() {
         return name;
     }
@@ -20,15 +21,12 @@ class TableOfTasks : public Transformable
         name = t_name;
         priority = t_priority;
     }
+
     void setPosition(int x, int y) {
         this->x = x;
         this->y += y;
-        sf::Transformable::setPosition(x, y);
     }
-    ~TableOfTasks() {
-        status = false;
 
-    }
     void draw(RenderWindow& window) {
         s_priority.setSize(sf::Vector2f(22, 22));
         del_button.setSize(sf::Vector2f(22, 22));
@@ -49,24 +47,31 @@ class TableOfTasks : public Transformable
         window.draw(del_button);
         window.draw(s_priority);
     }
-    unsigned int getX(){ return x;}
-    unsigned int getY(){ return y;}
-    bool getStatus()
-    {
+
+    unsigned int getX(){ 
+        return this->x;
+        }
+
+    unsigned int getY(){ 
+        return this->y;
+        }
+
+    bool getStatus(){
         return status;
     }
-    void setStatus()
-    {
-        status = false;
+
+    void setStatus(bool st){
+        status = st;
     }
 
     bool contains(sf::Vector2f point) const{
         return del_button.getGlobalBounds().contains(point);
     }
+
 private:
     sf::RectangleShape del_button;
     sf::RectangleShape s_priority;
-    unsigned int x = 0 , y = 30;
+    unsigned int x = 30 , y = 30;
     bool status;
     std::string name;
     int priority;
