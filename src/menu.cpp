@@ -91,11 +91,11 @@ void graphics()
         window.draw(menu2);
         
         for(unsigned int i = 0; i < tasks.size(); i++) {
+            auto pos = sf::Mouse::getPosition(window);
             if(tasks[i].getStatus() == 0){
                 txt.setString(tasks[i].getName());
                 txt.setPosition(tasks[i].getX(), tasks[i].getY());
-                if(tasks[i].getX() == 30)
-                    tasks[i].draw(window);  
+                tasks[i].draw(window);  
                 tasks[i].draw_priority(window);
                 window.draw(txt);
             } else if(tasks[i].getStatus() == 1){ 
@@ -120,7 +120,12 @@ void graphics()
                                 tasks[j].setPosition(-30);
                         
                 }
-            }            
+                
+            } 
+            if (tasks[i].contains_del(sf::Vector2f(pos)))
+                tasks[i].set_color_del_but(window);
+            else if (tasks[i].contains_com(sf::Vector2f(pos)))
+                tasks[i].set_color_com_but(window);               
         }
         window.display();
 

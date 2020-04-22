@@ -20,6 +20,8 @@ class TableOfTasks : public Transformable
         status = 0;
         name = t_name;
         priority = t_priority;
+        del_button.setRadius(11);
+        complete_button.setRadius(11);
     }
 
     void setPosition( int y) {
@@ -27,15 +29,27 @@ class TableOfTasks : public Transformable
     }
 
     void draw(RenderWindow& window) {
-        del_button.setSize(sf::Vector2f(22, 22));
-        complete_button.setSize(sf::Vector2f(22, 22));
-        complete_button.setPosition(x+(50* 17), y);
-        del_button.setPosition(x+(50* 17) + 25, y);
+        del_button.setFillColor(Color(60, 60, 60));
+        complete_button.setFillColor(Color(60, 60, 60));
+        if(x == 30){
+            complete_button.setPosition(x+(50* 17), y);
+            del_button.setPosition(x+(50* 17) + 25, y);     
+        }else {
+            complete_button.setPosition(x+(50* 17), 0 - 1000);
+            del_button.setPosition(x+(50* 17) + 25, 0 - 1000);
+        }
+        window.draw(complete_button);
+            window.draw(del_button);
+    }
+
+    void set_color_del_but(RenderWindow& window) {
         del_button.setFillColor(Color::Red);
+        window.draw(del_button);
+    }
+
+    void set_color_com_but(RenderWindow& window) {
         complete_button.setFillColor(Color::Green);
         window.draw(complete_button);
-        window.draw(del_button);
-        
     }
 
     void draw_priority(RenderWindow&  window) {
@@ -89,8 +103,8 @@ class TableOfTasks : public Transformable
     }
 
 private:
-    sf::RectangleShape complete_button;
-    sf::RectangleShape del_button;
+    sf::CircleShape complete_button;
+    sf::CircleShape del_button;
     sf::RectangleShape s_priority;
     unsigned int x = 30 , y = 30;
     char status;
