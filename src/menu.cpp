@@ -45,15 +45,40 @@ void graphics()
                 String s = form1(priority);
                 tasks.push_back(TableOfTasks(s, priority));
                 for(unsigned int i = 0; i < tasks.size(); i++) {
-                    if(tasks[i].getStatus() == true) {
-                        tasks[i].setPosition(30, 30);
+                    if(tasks[i].getStatus() == 0 && tasks[i].getX() != 1000) {
+                        tasks[i].setPosition(30);
                     }
                     
                 }
             } 
                 
         }
+        unsigned int k;
+        unsigned int f;
         
+        for(unsigned int i = 0; i < tasks.size(); i++) {
+            bool click  = false;
+            auto pos = sf::Mouse::getPosition(window);
+            if (tasks[i].contains_del(sf::Vector2f(pos))){
+                click = Mouse::isButtonPressed(Mouse::Left);
+                if(click) {
+                    if(tasks[i].getX() == 30) {
+                        tasks[i].setStatus(1);
+                        k = i;
+                    }
+                }
+            } else if (tasks[i].contains_com(sf::Vector2f(pos))){
+                click = Mouse::isButtonPressed(Mouse::Left);
+                if(click) {
+                    if(tasks[i].getX() == 30) {
+                        tasks[i].setY(30);
+                        tasks[i].setX(1000);
+                        tasks[i].setStatus(2);
+                        f = i;
+                    }
+                }
+            }
+        }
         if (IntRect(200, 15, 100, 27).contains(Mouse::getPosition(window))) {
             menu2.setColor(Color(50, 50, 50)); 
             if (Mouse::isButtonPressed(Mouse::Left)) {
@@ -64,23 +89,43 @@ void graphics()
         window.clear(Color(50, 50, 50));
         window.draw(menu1);
         window.draw(menu2);
+        
         for(unsigned int i = 0; i < tasks.size(); i++) {
             auto pos = sf::Mouse::getPosition(window);
-            if (tasks[i].contains(sf::Vector2f(pos))){
-                if(Mouse::isButtonPressed(Mouse::Left)) {
-                    if(tasks[i].getStatus() != false) {
-                        tasks[i].setStatus(false);
-                        for(unsigned int j = 0; j < i; j++)
-                        tasks[j].setPosition(30 ,-30);
-                    }
-                }
-            }
-            if(tasks[i].getStatus() == true){
+            if(tasks[i].getStatus() == 0){
                 txt.setString(tasks[i].getName());
                 txt.setPosition(tasks[i].getX(), tasks[i].getY());
-                tasks[i].draw(window);
+                tasks[i].draw(window);  
+                tasks[i].draw_priority(window);
                 window.draw(txt);
-            }
+            } else if(tasks[i].getStatus() == 1){ 
+                if(!Mouse::isButtonPressed(Mouse::Left)) {
+                    auto iter = tasks.begin();
+                    tasks.erase(iter + k);
+                    for(unsigned int j = 0; j < k; j++)
+                        if(tasks[j].getX() == 30)
+                            tasks[j].setPosition(-30);
+                        
+                }
+            } else if(tasks[i].getStatus() == 2) {
+                if(!Mouse::isButtonPressed(Mouse::Left)) {
+                        tasks[i].setStatus(0);
+                        for(unsigned int m = 0; m < tasks.size(); m++) {
+                            if(tasks[m].getX() == 1000) {
+                                tasks[m].setPosition(30);
+                            }
+                        }
+                        for(unsigned int j = 0; j < f; j++)
+                            if(tasks[j].getX() == 30)
+                                tasks[j].setPosition(-30);
+                        
+                }
+                
+            } 
+            if (tasks[i].contains_del(sf::Vector2f(pos)))
+                tasks[i].set_color_del_but(window);
+            else if (tasks[i].contains_com(sf::Vector2f(pos)))
+                tasks[i].set_color_com_but(window);               
         }
         window.display();
 

@@ -44,7 +44,7 @@ public:
             m_text += e.text.unicode;
         }
     }
-    virtual void draw(RenderWindow& window) const {
+    void draw(RenderWindow& window) const {
         Text txt;
         txt.setFont(m_font);
         txt.setPosition(0, 0);
@@ -109,9 +109,7 @@ std::string form1(int& i)
             }
         }
         for (Event event; window.pollEvent(event);)
-            if (event.type == Event::Closed)
-                window.close();
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
                 int vf = verify();
                 if(vf){
                     if(tf.getText() != "") {
