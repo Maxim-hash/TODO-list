@@ -122,9 +122,9 @@ void graphics()
                 }
                 
             } 
-            if (tasks[i].contains_del(sf::Vector2f(pos)))
+            if (tasks[i].contains_del(sf::Vector2f(pos)) && tasks[i].getX() == 30)
                 tasks[i].set_color_del_but(window);
-            else if (tasks[i].contains_com(sf::Vector2f(pos)))
+            else if (tasks[i].contains_com(sf::Vector2f(pos)) && tasks[i].getX() == 30)
                 tasks[i].set_color_com_but(window);               
         }
         window.display();

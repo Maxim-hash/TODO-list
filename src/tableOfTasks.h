@@ -34,12 +34,9 @@ class TableOfTasks : public Transformable
         if(x == 30){
             complete_button.setPosition(x+(50* 17), y);
             del_button.setPosition(x+(50* 17) + 25, y);     
-        }else {
-            complete_button.setPosition(x+(50* 17), 0 - 1000);
-            del_button.setPosition(x+(50* 17) + 25, 0 - 1000);
-        }
-        window.draw(complete_button);
+            window.draw(complete_button);
             window.draw(del_button);
+        }
     }
 
     void set_color_del_but(RenderWindow& window) {
